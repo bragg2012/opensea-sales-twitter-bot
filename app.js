@@ -4,6 +4,8 @@ const moment = require('moment');
 const { ethers } = require('ethers');
 const tweet = require('./tweet');
 const cache = require('./cache');
+const hashtag = process.env.HASHTAG;
+const bought = process.env.BOUGHT;
 
 // Format tweet text
 function formatAndSendTweet(event) {
@@ -21,7 +23,7 @@ function formatAndSendTweet(event) {
     const formattedEthPrice = formattedUnits * tokenEthPrice;
     const formattedUsdPrice = formattedUnits * tokenUsdPrice;
 
-    const tweetText = `${assetName} bought for ${formattedEthPrice}${ethers.constants.EtherSymbol} ($${Number(formattedUsdPrice).toFixed(2)}) #NFT ${openseaLink}`;
+    const tweetText = `${assetName} ${bought} ${formattedEthPrice}${ethers.constants.EtherSymbol} ($${Number(formattedUsdPrice).toFixed(2)}) #NFT ${hashtag} ${openseaLink}`;
 
     console.log(tweetText);
 
@@ -40,7 +42,7 @@ function formatAndSendTweet(event) {
 
 // Poll OpenSea every 60 seconds & retrieve all sales for a given collection in either the time since the last sale OR in the last minute
 setInterval(() => {
-    const lastSaleTime = cache.get('lastSaleTime', null) || moment().startOf('minute').subtract(59, "seconds").unix();
+    const lastSaleTime = cache.get('lastSaleTime', null) || moment().startOf('minute').subtract(5, "minutes").unix();
 
     console.log(`Last sale (in seconds since Unix epoch): ${cache.get('lastSaleTime', null)}`);
 
