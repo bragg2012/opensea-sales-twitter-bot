@@ -23,7 +23,7 @@ function formatAndSendTweet(event) {
     const formattedEthPrice = formattedUnits * tokenEthPrice;
     const formattedUsdPrice = (formattedUnits * tokenUsdPrice).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-    const tweetText = `${assetName} ${bought} ${formattedEthPrice}${ethers.constants.EtherSymbol} ($${Number(formattedUsdPrice).toFixed(2)}) #NFT ${hashtag} ${openseaLink}`;
+    const tweetText = `${assetName} ${bought} ${formattedEthPrice}${ethers.constants.EtherSymbol} ($${formattedUsdPrice}) #NFT ${hashtag} ${openseaLink}`;
 
     console.log(tweetText);
 
